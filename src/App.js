@@ -22,15 +22,40 @@ function App() {
           toDos.map((value)=>{
             return(<div className="todo">
             <div className="left">
-              <input value={value.status} type="checkbox" name="" id="" />
+              <input onChange={(e)=>{
+                setTodos(toDos.filter(value2=>{
+                  if(value2.id===value.id){
+                    value2.status=e.target.checked
+                  }
+                  return value2
+                }))
+              }} value={value.status} type="checkbox" name="" id="" />
               <p>{value.text}</p>
             </div>
             <div className="right">
-              <i className="fas fa-times"></i>
-            </div>
+              <i onClick={(e)=>{
+                setTodos(toDos.filter(value2 => {
+                  let temp;
+                  if (value2.id != value.id){
+                    temp = value2
+                  }
+                  return temp;
+                }));
+              }} className="fas fa-times"></i>
+          </div>
           </div>)
-          })
-        }
+          })}
+
+          {
+            toDos.map((value)=>{
+            if(value.status){
+              return(
+                <h2>{value.text}</h2>
+              )
+            }
+            return null
+          })}
+        
       </div>
     </div>
   );
